@@ -1,0 +1,36 @@
+{
+  "name": "w02e05-simple-server-side",
+  "version": "1.0.0",
+  "description": "### Powód:",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": " env-cmd nodemon ./src/server.js",
+    "lint": "eslint src --fix",
+    "pretty": "prettier src --write",
+    "lp": "npm run lint && npm run pretty",
+    "seed": "prisma db seed",
+    "migrate": "prisma migrate dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "env-cmd": "^10.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1",
+    "prisma": "^4.6.1",
+    "sqlite3": "^5.1.2"
+  },
+  "devDependencies": {
+    "@prisma/client": "^4.6.1",
+    "eslint": "^8.27.0"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}
