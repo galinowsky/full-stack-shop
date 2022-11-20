@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client'
 const prisma = new PrismaClient()
 
 const getUsers = async () => {
@@ -6,27 +6,41 @@ const getUsers = async () => {
   return users
 }
 
-const getProducts = async () => {
-  const products = await prisma.product.findMany()
+const getProducts = async (skip, take) => {
+  const products = await prisma.product.findMany({ skip, take })
   return products
 }
 
 const getProduct = async (productId) => {
-    const product = await prisma.product.findFirstOrThrow({
-        where: {
-            id: Number(productId),
-        }
-    })
-    return product
-  }
-const registerUser = async (email, password) => {
-  const user = await prisma.user.create({
-    data: {
-      email,
-      password,
+  const product = await prisma.product.findFirstOrThrow({
+    where: {
+      id: Number(productId),
     },
   })
-  return user
+  return product
+}
+const registerUser = async (email, password) => {
+  try {
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password,
+      },
+    })
+    console.log(user)
+    return user
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === 'P2002') {
+        console.log(
+          'There is a unique constraint violation, a new user cannot be created with this email'
+        )
+      }
+      // const error = new Error('User already exists!')
+      // console.log(error)
+      throw new Error(err)
+    }
+  }
 }
 
-export { getUsers, getProducts, registerUser,getProduct }
+export { getUsers, getProducts, registerUser, getProduct }

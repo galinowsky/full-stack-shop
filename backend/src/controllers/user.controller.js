@@ -7,6 +7,9 @@ import {
 
 import { getUsers, registerUser } from '../db/database.api.js'
 
+import { validationMiddleware } from '../middleware/validator.middleware.js'
+import { createUserDtoSchema } from './user-dto.schema.js'
+
 export const userController = new Router()
 
 userController.post('/login', (req, res) => {
@@ -25,15 +28,17 @@ userController.post('/login', (req, res) => {
 
 userController.get('/', authMiddleware, async (req, res) => {
   const users = await getUsers()
-  console.log(users)
 
   res.json({ users })
 })
 
-userController.post('/register', async (req, res) => {
-  const { email, password } = req.body
-  console.log(email, password)
-  const user = await registerUser(email, password)
+userController.post(
+  '/register',
+  validationMiddleware({ body: createUserDtoSchema }),
+  async (req, res) => {
+    const { email, password } = req.body
+    const user = await registerUser(email, password)
 
-  res.json({ user })
-})
+    res.json({ user })
+  }
+)
