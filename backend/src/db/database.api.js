@@ -43,4 +43,15 @@ const registerUser = async (email, password) => {
   }
 }
 
-export { getUsers, getProducts, registerUser, getProduct }
+const updateUser = async (userId, body) => {
+  console.log('wiisz mje?')
+  const user = await prisma.user.update({
+    where: {
+      id: Number(userId),
+    },
+    data: body,
+  })
+  return user
+}
+
+export { getUsers, getProducts, registerUser, getProduct, updateUser }

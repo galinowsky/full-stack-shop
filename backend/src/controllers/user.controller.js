@@ -5,7 +5,7 @@ import {
   hardcodedToken,
 } from '../middleware/auth.middleware.js'
 
-import { getUsers, registerUser } from '../db/database.api.js'
+import { getUsers, registerUser, updateUser } from '../db/database.api.js'
 
 import { validationMiddleware } from '../middleware/validator.middleware.js'
 import { createUserDtoSchema } from './user-dto.schema.js'
@@ -42,3 +42,10 @@ userController.post(
     res.json({ user })
   }
 )
+
+userController.patch('/:userId', async (req, res) => {
+  const { userId } = req.params
+  const { body } = req
+  const user = await updateUser(userId, body)
+  res.json(user)
+})

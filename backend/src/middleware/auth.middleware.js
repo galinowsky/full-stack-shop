@@ -5,6 +5,7 @@ export const authMiddleware = (req, res, next) => {
   const { authorization = '' } = req.headers
   const [, token] = authorization.split(' ')
   if (token === hardcodedToken) {
+    req.user = { id: 1, name: 'Mike' }
     next()
   } else {
     const error = new Error('Authorization error, user not logged in ')
