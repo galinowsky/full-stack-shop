@@ -1,5 +1,5 @@
 {
-  "name": "simple-server-side",
+  "name": "full-stack-shop",
   "version": "1.0.0",
   "description": "### Powód:",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "migrate": "prisma migrate dev"
   },
   "keywords": [],
-  "author": "",
+  "author": "jg",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -1,0 +1,13 @@
+.navbar{
+    background-color: lightgrey;
+    height: 60px !important;
+}
+.navbar-logo {
+    max-height: 70px !important;
+    height: 70px;
+
+    position: relative;
+    top: -10px;
+    right: 12px;
+
+}
